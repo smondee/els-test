@@ -27,11 +27,9 @@ locals {
   }
   poweruser_policy_attachment = {
     PowerUserAccess      = "arn:aws:iam::aws:policy/PowerUserAccess"
-    Billing      = "arn:aws:iam::aws:policy/Billing"
   }
   readonly_policy_attachment = {
     ReadOnlyAccess = "arn:aws:iam::aws:policy/ReadOnlyAccess"
-    Billing      = "arn:aws:iam::aws:policy/Billing"
   }
 }
 
