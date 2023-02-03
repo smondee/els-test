@@ -1,6 +1,7 @@
 # Account Alies
 resource "aws_iam_account_alias" "alias" {
-  account_alias = "${local.resource_prefix}-alias"
+#  account_alias = "${local.resource_prefix}-alias"
+   account_alias = "edion-els-stg-alias"
 }
 
 # IAM Group
