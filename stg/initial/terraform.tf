@@ -18,7 +18,7 @@ terraform {
     organization = "els-test"
 
     workspaces {
-      name = "initial"
+      name = "els_test_stg_init"
     }
   }
 }
