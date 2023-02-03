@@ -25,7 +25,7 @@ locals {
   administrator_policy_attachment = {
     AdministratorAccess      = "arn:aws:iam::aws:policy/AdministratorAccess"
   }
-  power_user_policy_attachment = {
+  poweruser_policy_attachment = {
     PowerUserAccess      = "arn:aws:iam::aws:policy/PowerUserAccess"
     Billing      = "arn:aws:iam::aws:policy/Billing"
   }
