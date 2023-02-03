@@ -1,6 +1,6 @@
 # Account Alies
 resource "aws_iam_account_alias" "alias" {
-  account_alias = "${local.resource_prefix_short}-alias"
+  account_alias = "${local.resource_prefix_short}"
 }
 
 # IAM Group
