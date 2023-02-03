@@ -11,6 +11,7 @@ locals {
   env                     = "stg"
   env_long                = "staging"
   resource_prefix         = "${var.project_name}-${var.service_name}-${local.env}"
+  resource_prefix_short   = "${var.service_name}-${local.env}"
   service_domain          = ""
   vpc_cidr                = "10.125.0.0/16" # NEW_EC_INFRA-17
   edion_system_cloud_cidr = "10.117.0.0/16" # NEW_EC_INFRA-3 transit gateway接続先

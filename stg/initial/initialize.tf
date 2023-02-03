@@ -1,6 +1,6 @@
 # Account Alies
 resource "aws_iam_account_alias" "alias" {
-  account_alias = "${local.resource_prefix}-alias"
+  account_alias = "${local.resource_prefix_short}-alias"
 }
 
 # IAM Group
@@ -37,7 +37,7 @@ locals {
 
 #AdministratorAccess
 resource "aws_iam_role" "administrator_switch_role" {
-  name = "${local.resource_prefix}-FullAccess-role"
+  name = "${local.resource_prefix_short}-FullAccess-role"
   assume_role_policy = jsonencode(
     {
       "Version" : "2012-10-17",
@@ -56,7 +56,7 @@ resource "aws_iam_role" "administrator_switch_role" {
     }
   )
   tags = {
-    Name = "${local.resource_prefix}-FullAccess-role"
+    Name = "${local.resource_prefix_short}-FullAccess-role"
   }
 }
 
@@ -68,7 +68,7 @@ resource "aws_iam_role_policy_attachment" "administrator_switch_role" {
 
 #PowerUser
 resource "aws_iam_role" "poweruser_switch_role" {
-  name = "${local.resource_prefix}-PowerUser-role"
+  name = "${local.resource_prefix_short}-PowerUser-role"
   assume_role_policy = jsonencode(
     {
       "Version" : "2012-10-17",
@@ -87,7 +87,7 @@ resource "aws_iam_role" "poweruser_switch_role" {
     }
   )
   tags = {
-    Name = "${local.resource_prefix}-PowerUser-role"
+    Name = "${local.resource_prefix_short}-PowerUser-role"
   }
 }
 
@@ -99,7 +99,7 @@ resource "aws_iam_role_policy_attachment" "poweruser_switch_role" {
 
 
 resource "aws_iam_role" "readonly_switch_role" {
-  name = "${local.resource_prefix}-ReadOnly-role"
+  name = "${local.resource_prefix_short}-ReadOnly-role"
   assume_role_policy = jsonencode(
     {
       "Version" : "2012-10-17",
@@ -118,7 +118,7 @@ resource "aws_iam_role" "readonly_switch_role" {
     }
   )
   tags = {
-    Name = "${local.resource_prefix}-ReadOnly-role"
+    Name = "${local.resource_prefix_short}-ReadOnly-role"
   }
 }
 
