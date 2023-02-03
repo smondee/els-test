@@ -19,12 +19,111 @@ resource "aws_iam_account_password_policy" "strict" {
   allow_users_to_change_password = true
 }
 
-#Cloudtrail Enable
-resource "aws_cloudtrail" "main" {
-  name                          = "${local.resource_prefix}-trail"
-  s3_bucket_name                = aws_s3_bucket.cloudtrail.id
-  include_global_service_events = true
-  is_multi_region_trail         = true
-  kms_key_id                    = aws_kms_key.cloudtrail.arn
-  s3_key_prefix                 = "cloudtrail"
+#Cross Account Role 
+
+locals {
+  administrator_policy_attachment = {
+    AdministratorAccess      = "arn:aws:iam::aws:policy/AdministratorAccess"
+  }
+  power_user_policy_attachment = {
+    PowerUserAccess      = "arn:aws:iam::aws:policy/PowerUserAccess"
+    Billing      = "arn:aws:iam::aws:policy/Billing"
+  }
+  readonly_policy_attachment = {
+    ReadOnlyAccess = "arn:aws:iam::aws:policy/ReadOnlyAccess"
+    Billing      = "arn:aws:iam::aws:policy/Billing"
+  }
+}
+
+#AdministratorAccess
+resource "aws_iam_role" "administrator_switch_role" {
+  name = "${local.resource_prefix}-FullAccess-role"
+  assume_role_policy = jsonencode(
+    {
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Effect" : "Allow",
+          "Principal" : {
+            "AWS" : [
+              "arn:aws:iam::884821112553:root",
+            ]
+          },
+          "Action" : "sts:AssumeRole",
+          "Condition" : {}
+        }
+      ]
+    }
+  )
+  tags = {
+    Name = "${local.resource_prefix}-FullAccess-role"
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "administrator_switch_role" {
+  for_each   = local.administrator_policy_attachment
+  role       = aws_iam_role.administrator_switch_role.name
+  policy_arn = each.value
+}
+
+#PowerUser
+resource "aws_iam_role" "poweruser_switch_role" {
+  name = "${local.resource_prefix}-PowerUser-role"
+  assume_role_policy = jsonencode(
+    {
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Effect" : "Allow",
+          "Principal" : {
+            "AWS" : [
+              "arn:aws:iam::884821112553:root",
+            ]
+          },
+          "Action" : "sts:AssumeRole",
+          "Condition" : {}
+        }
+      ]
+    }
+  )
+  tags = {
+    Name = "${local.resource_prefix}-PowerUser-role"
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "poweruser_switch_role" {
+  for_each   = local.poweruser_policy_attachment
+  role       = aws_iam_role.poweruser_switch_role.name
+  policy_arn = each.value
+}
+
+
+resource "aws_iam_role" "readonly_switch_role" {
+  name = "${local.resource_prefix}-ReadOnly-role"
+  assume_role_policy = jsonencode(
+    {
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Effect" : "Allow",
+          "Principal" : {
+            "AWS" : [
+              "arn:aws:iam::884821112553:root",
+            ]
+          },
+          "Action" : "sts:AssumeRole",
+          "Condition" : {}
+        }
+      ]
+    }
+  )
+  tags = {
+    Name = "${local.resource_prefix}-ReadOnly-role"
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "readonly_switch_role" {
+  for_each   = local.readonly_policy_attachment
+  role       = aws_iam_role.readonly_switch_role.name
+  policy_arn = each.value
 }
