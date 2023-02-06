@@ -3,7 +3,7 @@ data "aws_caller_identity" "current" {} # account idの取得: data.aws_caller_i
 data "aws_canonical_user_id" "current_user" {}
 data "aws_region" "current" {} # region取得: data.aws_region.current.name
 
-/* VPC: 既存リソースを利用 */
+/* VPC: 構築後に有効化 */
 data "aws_vpc" "vpc" {
   default = false
   state   = "available"
@@ -15,14 +15,12 @@ data "aws_vpc" "vpc" {
 
 data "aws_subnet" "main" {
   for_each = {
-    # public_a  = "public-route-igw-1a"
-    # public_c  = "public-route-igw-1c"
-    # private_a = "private-route-nat-1a"
-    # private_c = "private-route-nat-1c"
-    public_a  = "public-1a"
-    public_c  = "public-1c"
-    private_a = "private-1a"
-    private_c = "private-1c"
+    public_a = "public-route-igw-1a"
+    public_c = "public-route-igw-1c"
+    # public_d  = "public-route-igw-1d"
+    private_a = "private-route-nat-1a"
+    private_c = "private-route-nat-1c"
+    # private_d = "private-route-nat-1d"
   }
   filter {
     name   = "tag:Name"
@@ -30,30 +28,15 @@ data "aws_subnet" "main" {
   }
 }
 
-data "aws_subnet" "public" {
-  for_each = {
-    0 = "public-1a"
-    1 = "public-1c"
-  }
-  filter {
-    name   = "tag:Name"
-    values = ["${local.resource_prefix}-${each.value}"]
-  }
+data "aws_nat_gateway" "main" {
+  for_each = toset([
+    "public_a",
+    # "public_c"
+    # "public_d"
+  ])
+  subnet_id = data.aws_subnet.main[each.key].id
 }
 
-data "aws_subnet" "private" {
-  for_each = {
-    0 = "private-1a"
-    1 = "private-1c"
-
-  }
-  filter {
-    name   = "tag:Name"
-    values = ["${local.resource_prefix}-${each.value}"]
-  }
-}
-
-/* 未構築分を一時コメントアウト
 /* iam */
 data "aws_iam_role" "common" {
   for_each = {
@@ -78,6 +61,7 @@ data "aws_iam_policy" "common" {
 data "aws_db_subnet_group" "common" {
   name = "${local.resource_prefix}-common-db-subnet-group"
 }
+
 
 /* assumerole */
 data "aws_iam_policy_document" "assumerole" {
@@ -124,7 +108,14 @@ data "aws_s3_bucket" "common" {
 /* SG */
 data "aws_security_group" "common" {
   for_each = {
-    common_sg = "${local.resource_prefix}-common"
+    common_sg    = "${local.resource_prefix}-common"
+    backend_alb  = "${local.resource_prefix}-backend-alb"
+    backend_ecs  = "${local.resource_prefix}-backend-ecs"
+    frontend_alb = "${local.resource_prefix}-frontend-alb"
+    frontend_ecs = "${local.resource_prefix}-frontend-ecs"
+    sp_alb       = "${local.resource_prefix}-sp-alb"
+    sp_ecs       = "${local.resource_prefix}-sp-ecs"
+
   }
   filter {
     name   = "tag:Name"
@@ -146,4 +137,15 @@ data "aws_ami" "amazonlinux2_latest" {
 data "aws_acm_certificate" "service_domain_cert_ap_northeast_1" {
   domain = "*.${local.domains.service}"
 }
-*/
+
+/* LB */
+data "aws_lb" "common" {
+  for_each = {
+    frontend        = "${local.resource_prefix}-frontend"
+    backend-i       = "${local.resource_prefix}-backend-i"
+    sp              = "${local.resource_prefix}-sp"
+    exapi-catalog   = "${local.resource_prefix}-exapi-catalog"
+
+  }
+  name     = each.value
+}
