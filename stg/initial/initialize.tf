@@ -125,3 +125,17 @@ resource "aws_iam_role_policy_attachment" "readonly_switch_role" {
   role       = aws_iam_role.readonly_switch_role.name
   policy_arn = each.value
 }
+
+#CloudTrail
+resource "aws_cloudtrail" "foobar" {
+  name                          = "${local.resource_prefix_short}-trail"
+  s3_bucket_name                = aws_s3_bucket.trail.id
+  s3_key_prefix                 = "prefix"
+  include_global_service_events = false
+}
+
+resource "aws_s3_bucket" "trail" {
+  bucket        = "${local.resource_prefix_short}-traillog"
+  force_destroy = true
+}
+
