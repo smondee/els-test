@@ -140,7 +140,7 @@ resource "aws_s3_bucket" "trail_bucket" {
 }
 
 resource "aws_s3_bucket_policy" "trail_bucket_policy" {
-  bucket = aws_s3_bucket.foo.id
+  bucket = aws_s3_bucket.trail_bucket.id
   policy = <<POLICY
 {
     "Version": "2012-10-17",
