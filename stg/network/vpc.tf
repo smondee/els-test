@@ -17,32 +17,32 @@ resource "aws_internet_gateway" "igw" {
 }
 
 # Nat Gateway
-resource "aws_nat_gateway" "nat" {
-  # for_each = local.availability_zones
-  for_each = {
-    0 = "${data.aws_region.current.name}a" # 検証、開発は単一系統で配置
-    # 1 = "${data.aws_region.current.name}c"
-    # 2 = "${data.aws_region.current.name}d"
-  }
-  subnet_id     = data.aws_subnet.public[each.key].id
-  allocation_id = aws_eip.nat_eip[each.key].id
-  tags = {
-    Name = "${local.resource_prefix}-nat-${substr(each.value, 13, 2)}"
-  }
-}
+#resource "aws_nat_gateway" "nat" {
+#  # for_each = local.availability_zones
+#  for_each = {
+#    0 = "${data.aws_region.current.name}a" # 検証、開発は単一系統で配置
+#    # 1 = "${data.aws_region.current.name}c"
+#    # 2 = "${data.aws_region.current.name}d"
+#  }
+#  subnet_id     = data.aws_subnet.public[each.key].id
+#  allocation_id = aws_eip.nat_eip[each.key].id
+#  tags = {
+#    Name = "${local.resource_prefix}-nat-${substr(each.value, 13, 2)}"
+#  }
+#}
 # Nat EIP
-resource "aws_eip" "nat_eip" {
-  vpc      = true
-  # for_each = local.availability_zones
-  for_each = {
-    0 = "${data.aws_region.current.name}a" # 検証、開発は単一系統で配置
-    # 1 = "${data.aws_region.current.name}c"
-    # 2 = "${data.aws_region.current.name}d"
-  }
-  tags = {
-    Name = "${local.resource_prefix}-nat-eip-${substr(each.value, 13, 2)}"
-  }
-}
+#resource "aws_eip" "nat_eip" {
+#  vpc      = true
+#  # for_each = local.availability_zones
+#  for_each = {
+#    0 = "${data.aws_region.current.name}a" # 検証、開発は単一系統で配置
+#    # 1 = "${data.aws_region.current.name}c"
+#    # 2 = "${data.aws_region.current.name}d"
+#  }
+#  tags = {
+#    Name = "${local.resource_prefix}-nat-eip-${substr(each.value, 13, 2)}"
+#  }
+#}
 
 # Subnet
 resource "aws_subnet" "public" {
