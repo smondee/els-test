@@ -17,11 +17,11 @@ locals {
   edion_system_cloud_cidr = "10.117.0.0/16" # NEW_EC_INFRA-3 transit gateway接続先
   tgw_cidr                = "10.67.0.0/16"
 
-#  availability_zones = {
-#    0 = "${data.aws_region.current.name}a"
-#    1 = "${data.aws_region.current.name}c"
-#    # 2 = "${data.aws_region.current.name}d"
-#  }
+  availability_zones = {
+    0 = "${data.aws_region.current.name}a"
+    1 = "${data.aws_region.current.name}c"
+    # 2 = "${data.aws_region.current.name}d"
+  }
 
   /* IP情報 */
 #  source_ip_address_nat_gateway = [
