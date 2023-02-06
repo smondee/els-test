@@ -167,4 +167,4 @@ locals {
 #    "system_cloud_gateway_id"             = "tgw-00c85ad3ec7175a48"
 #    "system_cloud_gateway_route_table_id" = "tgw-rtb-xxxxxxxxxxxxxxxx"
 #  }
-#}
+}
