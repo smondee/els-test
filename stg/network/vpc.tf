@@ -1,3 +1,7 @@
+data "aws_caller_identity" "current" {}
+data "aws_canonical_user_id" "current_user" {}
+data "aws_region" "current" {}
+
 # VPC
 resource "aws_vpc" "vpc" {
   cidr_block           = local.vpc_cidr
