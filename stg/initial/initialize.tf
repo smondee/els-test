@@ -127,6 +127,8 @@ resource "aws_iam_role_policy_attachment" "readonly_switch_role" {
 }
 
 #CloudTrail
+data "aws_caller_identity" "current" {} # account idの取得: data.aws_caller_identity.current.account_id
+
 resource "aws_cloudtrail" "trail" {
   name                          = "${local.resource_prefix_short}-trail"
   s3_bucket_name                = aws_s3_bucket.trail_bucket.id
