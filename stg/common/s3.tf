@@ -5,8 +5,8 @@ data "aws_region" "current" {}
 locals {
   s3_bucket = {
     server_log        = "${local.resource_prefix}-server-log"
-    outer_elb_log     = "${local.resource_prefix}-outer-vpc-log"
-    inner_elb_log     = "${local.resource_prefix}-inner-vpc-log"
+    outer_elb_log     = "${local.resource_prefix}-outer-elb-log"
+    inner_elb_log     = "${local.resource_prefix}-inner-elb-log"
   }
 }
 resource "aws_s3_bucket" "bucket" {
