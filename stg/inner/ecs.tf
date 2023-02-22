@@ -68,6 +68,7 @@ resource "aws_iam_role" "ecs_task" {
   name               = "${local.role_prefix}-ecs"
   assume_role_policy = data.aws_iam_policy_document.assumerole["ecs-tasks"].json
 }
+#check
 resource "aws_iam_role_policy_attachment" "ecs_task" {
   for_each = {
     SSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
