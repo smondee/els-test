@@ -1,3 +1,7 @@
+data "aws_caller_identity" "current" {}
+data "aws_canonical_user_id" "current_user" {}
+data "aws_region" "current" {}
+
 locals {
   s3_bucket = {
     server_log        = "${local.resource_prefix}-server-log"

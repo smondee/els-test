@@ -1,3 +1,7 @@
+data "aws_caller_identity" "current" {}
+data "aws_canonical_user_id" "current_user" {}
+data "aws_region" "current" {}
+
 # subnet group
 resource "aws_db_subnet_group" "common" {
   name = "${local.resource_prefix}-common-db-subnet-group"
