@@ -53,25 +53,25 @@ data "aws_subnet" "private" {
   }
 }
 
-#/* iam */
-#data "aws_iam_role" "common" {
-#  for_each = {
-#    ecs_task_execution = "${local.resource_prefix}-ecs-task-execution"
+/* iam */
+data "aws_iam_role" "common" {
+  for_each = {
+    ecs_task_execution = "${local.resource_prefix}-ecs-task-execution"
 #    codebuild          = "${local.resource_prefix}-codebuild"
 #    codepipeline       = "${local.resource_prefix}-codepipeline"
 #
-#  }
-#  name = each.value
-#}
-#
-#data "aws_iam_policy" "common" {
-#  for_each = {
-#    ecs_exec   = "${local.resource_prefix}-ecs-exec"
-#    common_ecs = "${local.resource_prefix}-common-ecs"
-#
-#  }
-#  arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${each.value}"
-#}
+  }
+  name = each.value
+}
+
+data "aws_iam_policy" "common" {
+  for_each = {
+    ecs_exec   = "${local.resource_prefix}-ecs-exec"
+    common_ecs = "${local.resource_prefix}-common-ecs"
+
+  }
+  arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:policy/${each.value}"
+}
 #
 #/* RDS */
 #data "aws_db_subnet_group" "common" {
@@ -107,7 +107,7 @@ data "aws_s3_bucket" "common" {
 #    server_log        = "${local.resource_prefix}-server-log"
     outer_elb_log           = "${local.resource_prefix}-outer-elb-log"
     inner_elb_log           = "${local.resource_prefix}-inner-elb-log"
-#    ecs_exec_log      = "${local.resource_prefix}-ecs-exec-log"
+    ecs_exec_log      = "${local.resource_prefix}-ecs-exec-log"
 #    #user_upload_image = "${local.resource_prefix}-user-upload-image"
 #    csv               = "${local.resource_prefix}-csv"
 #    html              = "${local.resource_prefix}-html"
