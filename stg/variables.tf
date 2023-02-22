@@ -8,14 +8,14 @@ variable "service_name" {
 }
 
 locals {
-  env                     = "dev"
-  env_long                = "development"
+  env                     = "stg"
+  env_long                = "staging"
   resource_prefix         = "${var.project_name}-${var.service_name}-${local.env}"
   resource_prefix_short   = "${var.service_name}-${local.env}"
   service_domain          = ""
-  vpc_cidr                = "10.116.56.0/21"
-  edion_system_cloud_cidr = "10.117.0.0/16" # NEW_EC_INFRA-3 transit gateway接続先
-  tgw_cidr                = "10.67.0.0/16"
+  vpc_cidr                = "10.116.128.0/20"
+#  edion_system_cloud_cidr = "10.117.0.0/16" # NEW_EC_INFRA-3 transit gateway接続先
+#  tgw_cidr                = "10.67.0.0/16"
 
   # NEW_EC_INFRA-71
   edion_on_premise_01_cidr = "10.0.0.0/8"
