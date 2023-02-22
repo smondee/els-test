@@ -35,6 +35,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "example" {
 */
 
 /* bucket_policy */
+/*
 resource "aws_s3_bucket_policy" "outer_elb_log" {
   bucket = aws_s3_bucket.bucket["outer_elb_log"].id
   policy = data.aws_iam_policy_document.outer_elb_log.json
@@ -84,7 +85,7 @@ data "aws_iam_policy_document" "inner_elb_log" {
     }
   }
 }
-
+*/
 # 暗号化
 resource "aws_s3_bucket_server_side_encryption_configuration" "bucket" {
   for_each = local.s3_bucket
