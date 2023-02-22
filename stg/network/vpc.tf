@@ -65,7 +65,7 @@ resource "aws_subnet" "private" {
   for_each                = local.availability_zones
   vpc_id                  = aws_vpc.vpc.id
   availability_zone       = each.value
-  cidr_block              = cidrsubnet(local.vpc_cidr, 4, each.key + 1)
+  cidr_block              = cidrsubnet(local.vpc_cidr, 4, each.key + 2)
   map_public_ip_on_launch = "false"
 
   tags = {
