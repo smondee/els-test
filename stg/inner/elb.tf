@@ -54,7 +54,6 @@ resource "aws_lb" "alb_role_internal" {
   #[Support waf fail open attribute for ALB ・ Issue \#16372 ・ hashicorp/terraform\-provider\-aws ・ GitHub](https://github.com/hashicorp/terraform-provider-aws/issues/16372)
   #enable_waf_fail_open = true
 
-  # ELB
   access_logs {
     enabled = true
     bucket  = data.aws_s3_bucket.common["inner_elb_log"].id
