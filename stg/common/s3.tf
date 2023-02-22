@@ -54,7 +54,7 @@ data "aws_iam_policy_document" "outer_elb_log" {
       type = "AWS"
 
       identifiers = [
-        data.aws_elb_service_account.outer-elb_log.arn
+        data.aws_elb_service_account.outer_elb_log.arn
       ]
     }
   }
@@ -79,7 +79,7 @@ data "aws_iam_policy_document" "inner_elb_log" {
       type = "AWS"
 
       identifiers = [
-        data.aws_elb_service_account.inner-elb_log.arn
+        data.aws_elb_service_account.inner_elb_log.arn
       ]
     }
   }
