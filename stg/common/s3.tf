@@ -7,6 +7,7 @@ locals {
     server_log        = "${local.resource_prefix}-server-log"
     outer_elb_log     = "${local.resource_prefix}-outer-elb-log"
     inner_elb_log     = "${local.resource_prefix}-inner-elb-log"
+    ecs_exec_log      = "${local.resource_prefix}-ecs-exec-log"
   }
 }
 resource "aws_s3_bucket" "bucket" {
