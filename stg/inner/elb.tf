@@ -56,7 +56,7 @@ resource "aws_lb" "alb_role_internal" {
 
   access_logs {
     enabled = true
-    bucket  = data.aws_s3_bucket.common["outer_elb_log"].id
+    bucket  = data.aws_s3_bucket.common["inner_elb_log"].id
     prefix  = "${local.role_prefix}-i"
   }
 
