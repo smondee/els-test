@@ -101,10 +101,11 @@ data "aws_subnet" "private" {
 #  }
 #}
 #
-#data "aws_s3_bucket" "common" {
-#  for_each = {
+data "aws_s3_bucket" "common" {
+  for_each = {
 #    server_log        = "${local.resource_prefix}-server-log"
-#    elb_log           = "${local.resource_prefix}-elb-log"
+    outer_elb_log           = "${local.resource_prefix}-outer-elb-log"
+    inner_elb_log           = "${local.resource_prefix}-inner-elb-log"
 #    ecs_exec_log      = "${local.resource_prefix}-ecs-exec-log"
 #    #user_upload_image = "${local.resource_prefix}-user-upload-image"
 #    csv               = "${local.resource_prefix}-csv"
@@ -116,9 +117,9 @@ data "aws_subnet" "private" {
 #    special           = "${local.resource_prefix}-special"
 #    mail              = "${local.resource_prefix}-mail"
 #    migration_tools   = "${local.resource_prefix}-migration-tools"
-#  }
-#  bucket = each.value
-#}
+  }
+  bucket = each.value
+}
 #
 #/* SG */
 #data "aws_security_group" "common" {
