@@ -78,10 +78,10 @@ data "aws_subnet" "private" {
 #  name = "${local.resource_prefix}-common-db-subnet-group"
 #}
 #
-#/* assumerole */
-#data "aws_iam_policy_document" "assumerole" {
-#  for_each = toset([
-#    "ecs-tasks",
+/* assumerole */
+data "aws_iam_policy_document" "assumerole" {
+  for_each = toset([
+    "ecs-tasks",
 #    "firehose",
 #    "ec2",
 #    "lambda",
@@ -90,17 +90,17 @@ data "aws_subnet" "private" {
 #    "monitoring.rds",
 #    "events",
 #    "glue",
-#  ])
-#  statement {
-#    actions = ["sts:AssumeRole"]
-#
-#    principals {
-#      type        = "Service"
-#      identifiers = ["${each.key}.amazonaws.com"]
-#    }
-#  }
-#}
-#
+  ])
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["${each.key}.amazonaws.com"]
+    }
+  }
+}
+
 
 data "aws_s3_bucket" "common" {
   for_each = {
