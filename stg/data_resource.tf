@@ -101,6 +101,7 @@ data "aws_subnet" "private" {
 #  }
 #}
 #
+
 data "aws_s3_bucket" "common" {
   for_each = {
 #    server_log        = "${local.resource_prefix}-server-log"
