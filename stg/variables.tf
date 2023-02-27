@@ -28,11 +28,11 @@ locals {
   edion_on_premise_08_cidr = "172.26.201.0/24" # NEW_EC_INFRA-160 エディオン JR尼崎駅店５F 開発ルーム
   edion_on_premise_09_cidr = "172.26.203.0/24" # NEW_EC_INFRA-160 エディオン アネックスビル 開発ルーム
 
-  availability_zones = {
-    0 = "${data.aws_region.current.name}a"
-    1 = "${data.aws_region.current.name}c"
-    # 2 = "${data.aws_region.current.name}d"
-  }
+ # availability_zones = {
+ #   0 = "${data.aws_region.current.name}a"
+ #   1 = "${data.aws_region.current.name}c"
+ #   # 2 = "${data.aws_region.current.name}d"
+ # }
 
 #  /* IP情報
 #  source_ip_address_nat_gateway = [
