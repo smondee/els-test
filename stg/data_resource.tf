@@ -122,16 +122,16 @@ data "aws_s3_bucket" "common" {
   bucket = each.value
 }
 #
-/* SG */
-data "aws_security_group" "common" {
-  for_each = {
-    common_sg = "${local.resource_prefix}-common"
-  }
-  filter {
-    name   = "tag:Name"
-    values = [each.value]
-  }
-}
+#/* SG */
+#data "aws_security_group" "common" {
+#  for_each = {
+#    common_sg = "${local.resource_prefix}-common"
+#  }
+#  filter {
+#    name   = "tag:Name"
+#    values = [each.value]
+#  }
+#}
 #
 ## AMIs
 #data "aws_ami" "amazonlinux2_latest" {
