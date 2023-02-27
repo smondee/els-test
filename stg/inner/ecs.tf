@@ -190,10 +190,10 @@ resource "aws_ecs_service" "role" {
   scheduling_strategy = "REPLICA"
   network_configuration {
     assign_public_ip = false
-    security_groups = [
-      aws_security_group.ecs_role.id,
-      data.aws_security_group.common["common_sg"].id,
-    ]
+ #   security_groups = [
+ #     aws_security_group.ecs_role.id,
+ #     data.aws_security_group.common["common_sg"].id,
+ #   ]
     subnets = [
       data.aws_subnet.main["private_a"].id,
       data.aws_subnet.main["private_c"].id,
